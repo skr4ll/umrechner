@@ -32,3 +32,11 @@ Wenn du die Grundlagen gemeistert hast, kannst du noch folgende Verbesserungen e
 Dropdown-Menü für verschiedene Umrechnungen (der Nutzende können zwischen verschiedenen Optionen wählen).
 Fehlermeldungen anzeigen, wenn jemand keine Zahl eingibt.
 Design verbessern mit Farben, Icons oder Animationen.
+
+## Wichtige Datein
+
+Der wichtigste und einzig geschriebene Code befindet sich in: [hier](./app/src/main/java/com/example/calculator/MainActivity.kt).
+
+## APK
+
+Die APK ist im "APK" - Ordner zu finden.
