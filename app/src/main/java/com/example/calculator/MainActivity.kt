@@ -25,6 +25,7 @@ import kotlin.math.floor
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // using composables instead of xml, because xml is boooooooring
         enableEdgeToEdge()
         setContent {
             CalculatorTheme {
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
 }
 
 fun calcPitch(area: Float): String {
+    // taking the FIFA recommended area of the football/soccer pitch
     var calculatedArea = area / 7_140
     return "Das entspricht ca. $calculatedArea Fußballfeldern."
 }
@@ -56,10 +58,13 @@ fun calcAge(years: Int): String {
 }
 
 fun calcMoney(cents: Int): String {
+    // 86400 = 60 * 60 * 24
+    // to make it easier
     var days = floor(cents.toDouble() / 86400)
     return "Das entspricht ca. ${days.toInt()} Tagen."
 }
 
+// return a constructed integer out of a string
 fun getInteger(str: String): Int {
     return (str.filter { it.isDigit() }).toInt()
 }
