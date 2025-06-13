@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
 
 fun calcPitch(area: Float): String {
     // taking the FIFA recommended area of the football/soccer pitch
-    var calculatedArea = area / 7_140
-    return "Das entspricht ca. $calculatedArea Fußballfeldern."
+        var calculatedArea = checkNotNull(area) / 7_140
+        return "Das entspricht ca. $calculatedArea Fußballfeldern."
 }
 
 fun calcAge(years: Int): String {
@@ -67,9 +67,9 @@ fun calcMoney(cents: Int): String {
     return "Das entspricht ca. ${days.toInt()} Tagen."
 }
 
-// return a constructed integer out of a string
+//  Umwandlung des input Strings in Int
 fun getInteger(str: String): Int {
-    return (str.filter { it.isDigit() }).toInt()
+        return (str.filter { it.isDigit() }).toInt()
 }
 
 @Composable
@@ -101,18 +101,18 @@ fun Calculator(modifier: Modifier = Modifier)
             )
 
             Button(
-                onClick = {result = calcPitch(getInteger(text).toFloat())},
+                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcPitch(getInteger(text).toFloat()) },
                 modifier = paddingTop
             )
             { Text("Fläche in Fußballfelder") }
 
             Button(
-                onClick = { result = calcAge(getInteger(text)) }
+                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcAge(getInteger(text)) }
             )
             { Text("Alter in Minuten") }
 
             Button(
-                onClick = { result = calcMoney(getInteger(text)) },
+                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcMoney(getInteger(text)) },
                 modifier = paddingBottom
             )
             { Text("Geld in Zeit") }
