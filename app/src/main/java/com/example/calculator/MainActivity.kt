@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.calculator.ui.theme.CalculatorTheme
 import kotlin.math.floor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.text.input.KeyboardType
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +65,7 @@ fun calcAge(years: Int): String {
 fun calcMoney(cents: Int): String {
     // 86400 = 60 * 60 * 24
     // to make it easier
-    var days = floor(cents.toDouble() / 86400)
+    var days = floor(cents.toDouble()  / 86400)
     return "Das entspricht ca. ${days.toInt()} Tagen."
 }
 
@@ -96,23 +98,26 @@ fun Calculator(modifier: Modifier = Modifier)
 
             OutlinedTextField(
                 value = text,
-                onValueChange = { text = it },
+                onValueChange = { newText -> text = newText.filter { it.isDigit() }},
                 label = { Text("Umzurechnender Wert") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    )
             )
 
             Button(
-                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcPitch(getInteger(text).toFloat()) },
+                onClick = { if(!text.isEmpty()) result = calcPitch(getInteger(text).toFloat()) },
                 modifier = paddingTop
             )
             { Text("Fläche in Fußballfelder") }
 
             Button(
-                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcAge(getInteger(text)) }
+                onClick = { if(!text.isEmpty()) result = calcAge(getInteger(text)) }
             )
             { Text("Alter in Minuten") }
 
             Button(
-                onClick = { if(!text.isEmpty() && text.all {!it.isLetter()} ) result = calcMoney(getInteger(text)) },
+                onClick = { if(!text.isEmpty()) result = calcMoney(getInteger(text)) },
                 modifier = paddingBottom
             )
             { Text("Geld in Zeit") }
