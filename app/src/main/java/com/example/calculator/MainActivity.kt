@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
 fun calcPitch(area: Float): String {
     // taking the FIFA recommended area of the football/soccer pitch
-        var calculatedArea = checkNotNull(area) / 7_140
+        var calculatedArea = area / 7_140
         return "Das entspricht ca. $calculatedArea Fußballfeldern."
 }
 
