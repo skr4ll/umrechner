@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -17,10 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.calculator.ui.theme.CalculatorTheme
 import kotlin.math.floor
+import androidx.compose.material3.MaterialTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,32 +73,54 @@ fun getInteger(str: String): Int {
 }
 
 @Composable
-fun Calculator(modifier: Modifier = Modifier) {
+fun Calculator(modifier: Modifier = Modifier)
+{
     var text by remember { mutableStateOf("") }
-    var resolution by remember { mutableStateOf("") }
-    var padding = Modifier.padding(horizontal = 5.dp)
+    var result by remember { mutableStateOf("") }
+    var modColumn = Modifier.padding(top = 55.dp).fillMaxWidth()
+    var paddingBottom = Modifier.padding(bottom = 20.dp)
+    var paddingTop = Modifier.padding(top = 20.dp)
 
-    Box(modifier = modifier) {
-        Column(modifier = padding) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Column(
+            modifier = modColumn,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Berechnungsapp",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = paddingBottom
+            )
+
             OutlinedTextField(
                 value = text,
                 onValueChange = { text = it },
-                label = { Text("Amount") },
-                modifier = padding
+                label = { Text("Umzurechnender Wert") },
             )
-            Button(onClick = {
-                resolution = calcPitch(getInteger(text).toFloat())
-            }) { Text("Fläche in Fußballfelder") }
-            Button(onClick = {
-                resolution = calcAge(getInteger(text))
-            }) { Text("Alter in Minuten") }
-            Button(onClick = {
-                resolution = calcMoney(getInteger(text))
-            }) { Text("Geld in Zeit") }
+
+            Button(
+                onClick = {result = calcPitch(getInteger(text).toFloat())},
+                modifier = paddingTop
+            )
+            { Text("Fläche in Fußballfelder") }
+
+            Button(
+                onClick = { result = calcAge(getInteger(text)) }
+            )
+            { Text("Alter in Minuten") }
+
+            Button(
+                onClick = { result = calcMoney(getInteger(text)) },
+                modifier = paddingBottom
+            )
+            { Text("Geld in Zeit") }
+
             OutlinedTextField(
-                value = resolution,
+                value = result,
                 readOnly = true,
-                onValueChange = { resolution = it },
+                onValueChange = { result = it },
                 label = { Text("Ergebniss") })
         }
     }
